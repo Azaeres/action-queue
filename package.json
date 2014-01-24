@@ -1,0 +1,15 @@
+{
+  "name": "action-queue",
+  "version": "0.0.1",
+  "description": "Queues up actions for control over when they run",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha -r coffee-script test/*"
+  },
+  "author": "Ryan Barry",
+  "license": "ISC",
+  "dependencies": {
+    "coffee-script": "~1.6.3",
+    "underscore": "~1.5.2"
+  }
+}
