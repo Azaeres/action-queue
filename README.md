@@ -38,54 +38,46 @@ A step is a series of actions.
         });
         queue.endStep();
 
-Note that, at this point, all these actions are just being queued up, and haven't been run yet, so our actions haven't displayed anything to the console yet.
-
 5. Run your actions! `runNextStep()` runs the next step in the queue (which means each action in that step will execute in order). 
 
-      queue.runNextStep();
+        queue.runNextStep();
 
-````
-Doing stuff... { '0': 'arg1', '1': 'arg2' }
-Doing more stuff... {}
-````
+        // The following new content is displayed in the console at this point:
+        //  Doing stuff... { '0': 'arg1', '1': 'arg2' }
+        //  Doing more stuff... {}
 
 6. If you call `wait()`, any subsequent calls to `runNextStep()` do nothing. 
 
-If you pass a callback into `wait()`, it'll be called in the event the queue stops waiting.
-
-      queue.wait();
+        queue.wait();
 
 7. If you call `onComplete()` and pass in a callback, it will be called when `complete()` is called or when `runNextStep()` finishes running all the next step's actions.
 
-      queue.onComplete(function(){
-        console.log("Complete event triggered!");
-      });
+        queue.onComplete(function(){
+          console.log("Complete event triggered!");
+        });
 
-Since we're waiting now, this call has no effect.
+8. Since we're waiting now, this call has no effect.
 
-      queue.runNextStep();
+        queue.runNextStep();
 
-8. Stop waiting!
+9. Stop waiting!
 
-      queue.complete();
+        queue.complete();
 
-````
-Complete event triggered!
-````
+        // The following new content is displayed in the console at this point:
+        //  Complete event triggered!
 
-      queue.runNextStep();
+        queue.runNextStep();
 
-````
-Doing next step stuff... {}
-Complete event triggered!
-````
+        // The following new content is displayed in the console at this point:
+        //  Doing next step stuff... {}
+        //  Complete event triggered!
 
-      queue.runNextStep();
+        queue.runNextStep();
 
-````
-Step 3 stuff... {}
-Complete event triggered!
-````
+        // The following new content is displayed in the console at this point:
+        //  Step 3 stuff... {}
+        //  Complete event triggered!
 
 All our steps have been run and flushed out of the queue at this point.
 
