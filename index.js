@@ -1,2 +1,2 @@
 require('coffee-script');
-module.exports = require('./index.js.coffee');
+module.exports = require('./action-queue.js.coffee');
