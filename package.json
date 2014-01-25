@@ -1,6 +1,6 @@
 {
   "name": "action-queue",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Queues up actions for control over when they run",
   "main": "index.js",
   "scripts": {
