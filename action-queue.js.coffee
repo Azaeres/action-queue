@@ -39,7 +39,7 @@ class ActionQueue
         @_seq.splice 0, 1
         _(step).each (action) ->
           if (action.args.length > 0)
-            action.func.apply action.args
+            action.func.apply @, action.args
           else
             action.func()
 

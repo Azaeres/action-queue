@@ -305,7 +305,7 @@ describe 'ActionQueue', ->
       queue.endStep()
       queue.addAction step2action1
       queue.addAction step2action2
-      , ['arg1', 'arg2']
+      , ['foo', 'bar']
       queue.endStep()
       queue.addAction currentStepAction1
 
@@ -355,7 +355,7 @@ describe 'ActionQueue', ->
       queue.endStep()
       queue.addAction step2action1
       queue.addAction step2action2
-      , ['arg1', 'arg2']
+      , ['foo', 'bar']
       queue.endStep()
       queue.addAction currentStepAction1
       onComplete = sinon.spy()
@@ -384,7 +384,9 @@ describe 'ActionQueue', ->
       queue.runNextStep()
 
       assert(step1action1.called, "step1action1 wasn't called, but should've been")
+      assert(step1action1.calledWith(), "step1action1 was not called without arguments")
       assert(step1action2.called, "step1action2 wasn't called, but should've been")
+      assert(step1action2.calledWith('arg1', 'arg2'), "step1action2 wasn't called with the appropriate arguments")
       assert(!step2action1.called, "step2action1 wasn't called, but should've been")
       assert(!step2action2.called, "step2action2 wasn't called, but should've been")
       assert(!currentStepAction1.called, "currentStepAction1 was called, but shouldn't have been")
@@ -396,16 +398,14 @@ describe 'ActionQueue', ->
 
       queue.runNextStep()
 
-      assert(step1action1.called, "step1action1 wasn't called, but should've been")
-      assert(step1action2.called, "step1action2 wasn't called, but should've been")
       assert(step2action1.called, "step2action1 wasn't called, but should've been")
+      assert(step2action2.calledWith(), "step2action1 was not called without arguments")
       assert(step2action2.called, "step2action2 wasn't called, but should've been")
+      assert(step2action2.calledWith('foo', 'bar'), "step2action2 wasn't called with the appropriate arguments")
       assert(!currentStepAction1.called, "currentStepAction1 was called, but shouldn't have been")
-      assert(onComplete.called, "onComplete was called, but shouldn't have been")
 
       queue.runNextStep()
 
       assert(!currentStepAction1.called, "currentStepAction1 was called, but shouldn't have been")
-      assert(onComplete.called, "onComplete was called, but shouldn't have been")
 
-      
+
