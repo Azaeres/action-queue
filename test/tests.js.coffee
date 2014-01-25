@@ -200,24 +200,6 @@ describe 'ActionQueue', ->
 
       assert(state.Waiting == false, "wait flag should be true")
 
-    it "should accept a callback", ->
-      queue = constructQueue()
-      onComplete = sinon.spy()
-      queue.wait onComplete
-      state = queue.state()
-
-      state.Callback()
-      assert(onComplete.called, "wait callback should have been called")
-
-    it "callback should be called when waiting is over", ->
-      queue = constructQueue()
-      onComplete = sinon.spy()
-      queue.wait onComplete
-      state = queue.state()
-
-      queue.complete()
-      assert(onComplete.called, "wait callback should have been called")
-
   describe "#runNextStep", ->
     it "should not call queued up actions if waiting", ->
       queue = new ActionQueue()
@@ -234,7 +216,7 @@ describe 'ActionQueue', ->
       , ['arg1', 'arg2']
       queue.endStep()
       onComplete = sinon.spy()
-      queue.wait onComplete
+      queue.wait()
       queue.runNextStep()
 
       assert(!step1action1.called, "step1action1 was called, but shouldn't have been")
@@ -359,7 +341,8 @@ describe 'ActionQueue', ->
       queue.endStep()
       queue.addAction currentStepAction1
       onComplete = sinon.spy()
-      queue.wait onComplete
+      queue.onComplete onComplete
+      queue.wait()
 
       state = queue.state()
       steps = state.Steps
@@ -368,14 +351,15 @@ describe 'ActionQueue', ->
 
       queue.runNextStep()
 
-      assert(!step1action1.called, "step1action1 wasn't called, but should've been")
-      assert(!step1action2.called, "step1action2 wasn't called, but should've been")
+      assert(!step1action1.called, "step1action1 was called, but shouldn't have been")
+      assert(!step1action2.called, "step1action2 was called, but shouldn't have been")
       assert(!step2action1.called, "step2action1 was called, but shouldn't have been")
       assert(!step2action2.called, "step2action2 was called, but shouldn't have been")
       assert(!currentStepAction1.called, "currentStepAction1 was called, but shouldn't have been")
-      assert(!onComplete.called, "onComplete was called, but shouldn't have been")
+      assert(onComplete.callCount == 0, "onComplete was called "+onComplete.callCount+" times, but should've been called 0 times")
 
       queue.complete()
+      assert(onComplete.callCount == 1, "onComplete was called "+onComplete.callCount+" times, but should've been called 1 times")
 
       state = queue.state()
       steps = state.Steps
@@ -390,7 +374,7 @@ describe 'ActionQueue', ->
       assert(!step2action1.called, "step2action1 wasn't called, but should've been")
       assert(!step2action2.called, "step2action2 wasn't called, but should've been")
       assert(!currentStepAction1.called, "currentStepAction1 was called, but shouldn't have been")
-      assert(onComplete.called, "onComplete was called, but shouldn't have been")
+      assert(onComplete.callCount == 2, "onComplete was called "+onComplete.callCount+" times, but should've been called 2 times")
 
       state = queue.state()
       steps = state.Steps
@@ -403,6 +387,7 @@ describe 'ActionQueue', ->
       assert(step2action2.called, "step2action2 wasn't called, but should've been")
       assert(step2action2.calledWith('foo', 'bar'), "step2action2 wasn't called with the appropriate arguments")
       assert(!currentStepAction1.called, "currentStepAction1 was called, but shouldn't have been")
+      assert(onComplete.callCount == 3, "onComplete was called "+onComplete.callCount+" times, but should've been called 3 times")
 
       queue.runNextStep()
 

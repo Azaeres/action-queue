@@ -54,7 +54,7 @@ class ActionQueue
 
   
   # If you've called `wait`, this tells the action queue to stop waiting
-  # and call the callback (if one was given at the call to `wait`).
+  # and calls the onComplete callback if there is one.
   complete: =>
     if @_waiting
       @_waiting = false
@@ -66,8 +66,7 @@ class ActionQueue
   # While waiting, all calls to `runNextStep` do nothing.
   # Give it a callback function to execute when it should stop waiting.
   # Will wait until `complete` is called.
-  wait: (callback) =>
-    @onComplete callback
+  wait: () =>
     @_waiting = true
     @
 
