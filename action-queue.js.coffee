@@ -6,7 +6,6 @@ class ActionQueue
     @_cur = []
     @_cb = ->
 
-    @_complete = true
     @_waiting = false
   
   # Adds an action to the currect step.
@@ -14,7 +13,7 @@ class ActionQueue
     if _.isFunction(func)
       @_cur.push
         func: func
-        args: args
+        args: args || []
 
     else
       throw "`addAction`: Argument 1 must be a function."
@@ -39,7 +38,7 @@ class ActionQueue
       unless _.isUndefined(step)
         @_seq.splice 0, 1
         _(step).each (action) ->
-          if _.isArray(action.args)
+          if (action.args.length > 0)
             action.func.apply action.args
           else
             action.func()
@@ -74,12 +73,11 @@ class ActionQueue
 
   
   # For debug purposes.
-  # Returns the currect action sequence, so it can be inspected.
+  # Returns the current action sequence, so it can be inspected.
   state: =>
     Steps: @_seq
     "Current step": @_cur
     Callback: @_cb
     Waiting: @_waiting
-    Complete: @_complete
 
 module.exports = ActionQueue
