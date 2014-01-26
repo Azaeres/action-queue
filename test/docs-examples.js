@@ -83,3 +83,53 @@ describe('README example', function() {
     // All our steps have been run and flushed out of the queue at this point.
   });
 });
+
+// // Testing future facet tools
+// describe('test', function () {
+//   it('foo', function () {
+//     // var _ = require('underscore');
+
+//     // Imbue transformation
+//     var imbue = function () {
+//       var self = this;
+//       var sources = [].slice.call(arguments, 0);
+//       sources.forEach(function (source) {
+//         Object.getOwnPropertyNames(source).forEach(function(propName) {
+//           Object.defineProperty(self, propName,
+//             Object.getOwnPropertyDescriptor(source, propName));
+//         });
+//       });
+//       return self;
+//     };
+
+//     // Property facet constructor
+//     var PropertyFacet = function(propertyName) {
+//       var internalPropertyName = '_'+propertyName;
+//       Object.defineProperty(this, propertyName, {
+//         get: function() {
+//           console.log('getter called');
+//           return this[internalPropertyName];
+//         }
+//         , set: function (v) {
+//           console.log('setter called with value: '+v);
+//           this[internalPropertyName] = v;
+//         }
+//         , configurable: true
+//         , enumerable: true
+//       });
+//       return this;
+//     };
+
+//     // Crab constructor
+//     var Crab = function(name) {
+//       var self = this;
+//       var propertyName = 'name';
+//       imbue.call(self, new PropertyFacet(propertyName));
+//       self[propertyName] = name;
+//       return self;
+//     };
+ 
+//     var c = new Crab('Crabbie');
+//     console.log('marker: c.name:\n', c.name);
+//   })
+// })

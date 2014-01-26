@@ -16,5 +16,13 @@
     "coffee-script": "~1.6.3",
     "underscore": "~1.5.2",
     "sinon": "~1.7.3"
-  }
+  },
+  "keywords": [
+    "action", 
+    "queue", 
+    "action queue", 
+    "async", 
+    "callback", 
+    "sync"
+  ]
 }
