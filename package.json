@@ -1,6 +1,6 @@
 {
   "name": "action-queue",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Queues up actions for control over when they run",
   "main": "index.js",
   "scripts": {
@@ -18,11 +18,11 @@
     "sinon": "~1.7.3"
   },
   "keywords": [
-    "action", 
-    "queue", 
-    "action queue", 
-    "async", 
-    "callback", 
+    "action",
+    "queue",
+    "action queue",
+    "async",
+    "callback",
     "sync"
   ]
 }
