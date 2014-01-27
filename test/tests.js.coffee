@@ -251,35 +251,6 @@ describe 'ActionQueue', ->
       step1action2 = sinon.spy()
       step2action1 = sinon.spy()
       step2action2 = sinon.spy()
-      queue.addAction step1action1
-      queue.addAction step1action2
-      , ['arg1', 'arg2']
-      queue.endStep()
-      queue.addAction step2action1
-      queue.addAction step2action2
-      , ['arg1', 'arg2']
-      queue.endStep()
-
-      queue.runNextStep()
-
-      assert(step1action1.called, "step1action1 wasn't called, but should've been")
-      assert(step1action2.called, "step1action2 wasn't called, but should've been")
-      assert(!step2action1.called, "step2action1 was called, but shouldn't have been")
-      assert(!step2action2.called, "step2action2 was called, but shouldn't have been")
-
-      queue.runNextStep()
-
-      assert(step1action1.called, "step1action1 wasn't called, but should've been")
-      assert(step1action2.called, "step1action2 wasn't called, but should've been")
-      assert(step2action1.called, "step2action1 wasn't called, but should've been")
-      assert(step2action2.called, "step2action2 wasn't called, but should've been")
-
-    it "should call queued up actions in multiple steps if called repeatedly", ->
-      queue = new ActionQueue()
-      step1action1 = sinon.spy()
-      step1action2 = sinon.spy()
-      step2action1 = sinon.spy()
-      step2action2 = sinon.spy()
       currentStepAction1 = sinon.spy()
       queue.addAction step1action1
       queue.addAction step1action2
