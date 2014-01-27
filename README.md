@@ -1,4 +1,4 @@
-# action-queue
+# Action Queue
 
 Queues up actions for control over when they run.
 
@@ -6,6 +6,7 @@ Queues up actions for control over when they run.
 
 1. Create a queue object.
 
+        var ActionQueue = require('action-queue');
         var queue = new ActionQueue();
 
 2. Add actions to it.
